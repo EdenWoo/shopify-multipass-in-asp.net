@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShopifyMultiPassApp.Models;
 using ShopifyMultipassTokenGenerator;
 using ShopifyMultipassTokenGenerator.Models;
 using System;
@@ -30,7 +31,7 @@ namespace ShopifyMultiPassApp.Controllers
                 //var secret = ConfigurationManager.AppSettings["shopifyMultipassSecret"];
                 //var domain = ConfigurationManager.AppSettings["shopifyMultipassDomain"];
                 var secret = "f8e3bcd88222497b2fd4b3bcc7383674";
-                var domain = "https://multipass-test.myshopify.com";
+                var domain = "multipass-test.myshopify.com";
                 var customerJSONString = JsonConvert.SerializeObject(input);
                 ShopifyMultipass shopifyMultipass = new ShopifyMultipass(secret, domain);
                 url = shopifyMultipass.Process(customerJSONString);
@@ -44,8 +45,4 @@ namespace ShopifyMultiPassApp.Controllers
         }
     }
 
-    public class Signin
-    {
-        public string Email { get; set; }
-    }
 }
