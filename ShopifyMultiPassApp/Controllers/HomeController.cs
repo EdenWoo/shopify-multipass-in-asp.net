@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShopifyMultiPassApp.Helpers;
 using ShopifyMultiPassApp.Models;
-using ShopifyMultipassTokenGenerator;
-using ShopifyMultipassTokenGenerator.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ShopifyMultiPassApp.Controllers
