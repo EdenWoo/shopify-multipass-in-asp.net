@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using ShopifyMultipassTokenGenerator;
+using ShopifyMultipassTokenGenerator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,18 +16,36 @@ namespace ShopifyMultiPassApp.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Signin(Signin model)
         {
-            ViewBag.Message = "Your application description page.";
+            if (ModelState.IsValid)
+            {
+                var url = Request.UrlReferrer?.AbsoluteUri ?? "";
+                var input = new Customer()
+                {
+                    Email = model.Email
+                };
 
-            return View();
+                //var secret = ConfigurationManager.AppSettings["shopifyMultipassSecret"];
+                //var domain = ConfigurationManager.AppSettings["shopifyMultipassDomain"];
+                var secret = "f8e3bcd88222497b2fd4b3bcc7383674";
+                var domain = "https://multipass-test.myshopify.com";
+                var customerJSONString = JsonConvert.SerializeObject(input);
+                ShopifyMultipass shopifyMultipass = new ShopifyMultipass(secret, domain);
+                url = shopifyMultipass.Process(customerJSONString);
+
+                return Redirect(url);
+            }
+            else
+            {
+                return Content("Error");
+            }
         }
+    }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+    public class Signin
+    {
+        public string Email { get; set; }
     }
 }
