@@ -13,14 +13,16 @@ namespace ShopifyMultiPassApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signin(Signin model)
+        public ActionResult Signin(Customer model)
         {
             if (ModelState.IsValid)
             {
                 var url = Request.UrlReferrer?.AbsoluteUri ?? "";
                 var input = new Customer()
                 {
-                    Email = model.Email
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
                 };
 
                 //var secret = ConfigurationManager.AppSettings["shopifyMultipassSecret"];
